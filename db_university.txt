@@ -1,7 +1,7 @@
 1) 
 SELECT * 
 FROM `students` 
-WHERE `date_of_birth` LIKE '1990-%'
+WHERE YEAR(`date_of_birth`) LIKE '1990-%'
 
 -----------------------------------------------
 
@@ -15,21 +15,21 @@ WHERE `cfu` > 10
 3) 
 SELECT * 
 FROM `students` 
-WHERE `date_of_birth` < '1991-%';
+WHERE TIMESTAMPDIFF(YEAR,`date_of_birth`, CURRENT_DATE()) > 30
 
 -----------------------------------------------
 
 4) 
 SELECT * 
 FROM `courses` 
-WHERE `year` LIKE '1' AND `period` LIKE 'I semestre'
+WHERE `year` = 1 AND `period` = 'I semestre'
 
 -----------------------------------------------
 
 5) 
 SELECT * 
 FROM `exams` 
-WHERE `hour` > '14:00:00' AND `date` LIKE '2020-06-20';
+WHERE HOUR(`hour`) >= 14 AND `date` LIKE '2020-06-20';
 
 -----------------------------------------------
 
@@ -40,14 +40,14 @@ WHERE `level` LIKE 'magistrale';
 -----------------------------------------------
 
 7) 
-SELECT * 
+SELECT COUNT(*) AS `numeri_dipartimenti`
 FROM `departments` 
-WHERE `name` LIKE '%'
+
 -----------------------------------------------
 
 8) 
-SELECT * 
+SELECT COUNT(*) AS `cellulare_insegnanti` 
 FROM `teachers` 
-WHERE `phone` IS NOT NULL
+WHERE `phone` IS NULL
 
 -----------------------------------------------
