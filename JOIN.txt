@@ -70,6 +70,22 @@ GROUP BY `students`.`id`, `courses`.`id`
 
 -----------------------------------------------
 
+8) 
 
+SELECT `course`.`name`, `courses`.`period`, `courses`.`year`, `courses`,`cfu`
+FROM `courses`
+JOIN `degrees` ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `students` ON `students`.`degree_id` = `degrees`.`id`
+WHERE `students`.`name` = 'Ursula' AND `students`.`surname` = 'Benedetti'
+AND `courses`.`id` NOT IN ( 
+  SELECT `course`.`id`
+  FROM `courses`
+  JOIN `exams` ON `exams`.`course_id` = `courses`.`id`
+  JOIN `exam_student` ON `exams`.`id` = `exam_student`.`exam_id`
+  JOIN `students` ON `students`.`id` = `exam_student`.`student_id`
+  WHERE `exam_student`.`vote` > 17
+  AND `students`.`name` = 'Ursula' AND `students`.`surname` = 'Benedetti'
+)
 
+-----------------------------------------------
 
